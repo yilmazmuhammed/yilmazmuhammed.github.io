@@ -1,266 +1,171 @@
 <!DOCTYPE html>
-<html lang="" class="os-html"><head>
-	<title></title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width">
-	
-    <link type="text/css" href="https://app-rsrc.getbee.io/public/resources/preview/OverlayScrollbars.css" rel="stylesheet">
-    <script type="text/javascript" src="https://app-rsrc.getbee.io/public/resources/preview/OverlayScrollbars.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        OverlayScrollbars(document.querySelectorAll("body"), { });
-      });
-      function scrollElementIntoView(elementId){
-        var element = document.getElementById(elementId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fadime & Muhammed</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Font Awesome (ikonlar için) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrQkTy3Xo9L9K4HqDkJhX5PzYV5yp7xZyF4N6EJIsjdZ0+1yXzUbU5J1+YsyHeXxGq1K8EJQZ7Yx+M4KQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf6f0;
+            color: #333;
         }
-      }
-    </script>
-  <style>
-
-		.bee-row,
-		.bee-row-content {
-			position: relative
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header img {
+            width: 95%; /* Görselin tam görünmesi için %100 genişlik */
+            height: auto; /* Orantılı yükseklik */
+        }
+        header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+            color: #a0522d; /* Başlık rengi */
+            margin: 10px 0;
+        }
+        .divider {
+            //border-top: 2px solid #e0a899; /* Ayırıcı rengi */
+            margin: 20px 0; /* Üst ve alt boşluk */
+			text-align:center;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .section {
+            margin-bottom: 40px;
+            text-align: center; /* Başlıkları ortalamak için */
+        }
+        .section h2 {
+            border-bottom: 2px solid #e0a899;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #a0522d;
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 oranı */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 10px; /* Harita ile buton arasında boşluk */
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #a0522d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-align: center; /* Butonun ortalanması için */
+        }
+        .button:hover {
+            background-color: #8b4513;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #e0a899;
+            color: white;
+        }
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+                text-align: center;
+                padding: 0 10px;
+            }
+        }
+		.container {
+			padding: 20px;
+			max-width: 400px; /* Maksimum genişliği buradan ayarlayabilirsin */
+			margin: auto;
 		}
-
-		.bee-row-6,
-		.bee-row-6 .bee-row-content {
-			background-color: #ffffff;
-			background-repeat: no-repeat
+		header {
+			padding: 20px 0px 0px 0px ;
+			max-width: 500px; /* Maksimum genişliği buradan ayarlayabilirsin */
+			margin: auto;
 		}
-
-		.bee-row-1,
-		.bee-row-1 .bee-row-content,
-		.bee-row-2,
-		.bee-row-3,
-		.bee-row-4,
-		.bee-row-5,
-		.bee-row-6,
-		.bee-row-6 .bee-row-content {
-			background-repeat: no-repeat
+		.venue {
+			display: block; /* Mekan ismini alt satıra almak için */
+			font-size: 0.8em; /* Font boyutunu ayarlamak için */
+			color: #7a5a4c; /* Mekan isminin rengi */
 		}
-
-		body {
-			background-color: #FFFFFF;
-			color: #000000;
-			font-family: Arial, "Helvetica Neue", Helvetica, sans-serif
-		}
-
-		a {
-			color: #7747ff
-		}
-
-		* {
-			box-sizing: border-box
-		}
-
-		body,
-		h1,
-		p {
-			margin: 0
-		}
-
-		.bee-row-content {
-			max-width: 500px;
-			margin: 0 auto;
-			display: flex
-		}
-
-		.bee-row-content .bee-col-w12 {
-			flex-basis: 100%
-		}
-
-		.bee-icon .bee-icon-label-right a {
-			text-decoration: none
-		}
-
-		.bee-divider,
-		.bee-image {
-			overflow: auto
-		}
-
-		.bee-divider .center,
-		.bee-image .bee-center {
-			margin: 0 auto
-		}
-
-		.bee-row-1 .bee-col-1 .bee-block-1 {
-			width: 100%
-		}
-
-		.bee-icon {
-			display: inline-block;
-			vertical-align: middle
-		}
-
-		.bee-icon .bee-content {
-			display: flex;
-			align-items: center
-		}
-
-		.bee-image img {
-			display: block;
-			width: 100%
-		}
-
-		.bee-paragraph {
-			overflow-wrap: anywhere
-		}
-
-		@media (max-width:520px) {
-			.bee-row-content:not(.no_stack) {
-				display: block
-			}
-		}
-
-		.bee-row-1 .bee-row-content {
-			color: #000000
-		}
-
-		.bee-row-1 .bee-col-1,
-		.bee-row-2 .bee-col-1,
-		.bee-row-3 .bee-col-1,
-		.bee-row-4 .bee-col-1,
-		.bee-row-5 .bee-col-1,
-		.bee-row-6 .bee-col-1 {
-			padding-bottom: 5px;
-			padding-top: 5px
-		}
-
-		.bee-row-2 .bee-row-content,
-		.bee-row-3 .bee-row-content,
-		.bee-row-4 .bee-row-content,
-		.bee-row-5 .bee-row-content {
-			background-repeat: no-repeat;
-			border-radius: 0;
-			color: #000000
-		}
-
-		.bee-row-2 .bee-col-1 .bee-block-1,
-		.bee-row-2 .bee-col-1 .bee-block-3,
-		.bee-row-3 .bee-col-1 .bee-block-1,
-		.bee-row-3 .bee-col-1 .bee-block-3,
-		.bee-row-4 .bee-col-1 .bee-block-1,
-		.bee-row-4 .bee-col-1 .bee-block-3 {
-			padding: 10px
-		}
-
-		.bee-row-2 .bee-col-1 .bee-block-2,
-		.bee-row-3 .bee-col-1 .bee-block-2,
-		.bee-row-4 .bee-col-1 .bee-block-2 {
-			padding: 10px;
-			text-align: center;
-			width: 100%
-		}
-
-		.bee-row-6 .bee-row-content {
-			color: #000000
-		}
-
-		.bee-row-6 .bee-col-1 .bee-block-1 {
-			color: #1e0e4b;
-			font-family: Inter, sans-serif;
-			font-size: 15px;
-			padding-bottom: 5px;
-			padding-top: 5px;
-			text-align: center
-		}
-
-		.bee-row-2 .bee-col-1 .bee-block-3,
-		.bee-row-3 .bee-col-1 .bee-block-3,
-		.bee-row-4 .bee-col-1 .bee-block-3 {
-			color: #101112;
-			direction: ltr;
-			font-size: 16px;
-			font-weight: 400;
-			letter-spacing: 0;
-			line-height: 120%;
-			text-align: left
-		}
-
-		.bee-row-2 .bee-col-1 .bee-block-3 a,
-		.bee-row-3 .bee-col-1 .bee-block-3 a,
-		.bee-row-4 .bee-col-1 .bee-block-3 a {
-			color: #7747FF
-		}
-
-		.bee-row-2 .bee-col-1 .bee-block-3 p:not(:last-child),
-		.bee-row-3 .bee-col-1 .bee-block-3 p:not(:last-child),
-		.bee-row-4 .bee-col-1 .bee-block-3 p:not(:last-child) {
-			margin-bottom: 16px
-		}
-
-		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon-image {
-			padding: 5px 6px 5px 5px
-		}
-
-		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon:not(.bee-icon-first) .bee-content {
-			margin-left: 0
-		}
-
-		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon::not(.bee-icon-last) .bee-content {
-			margin-right: 0
-		}
-	</style>
+    </style>
 </head>
+<body>
 
-<body class="os-host os-theme-dark os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition"><div class="os-resize-observer-host observed"><div class="os-resize-observer" style="left: 0px; right: auto;"></div></div><div class="os-padding"><div class="os-viewport os-viewport-native-scrollbars-invisible os-viewport-native-scrollbars-overlaid" style="overflow-y: scroll;"><div class="os-content" style="padding: 0px; height: 100%; width: 100%;">
-	<div class="bee-page-container">
-		<div class="bee-row bee-row-1">
-			<div class="bee-row-content">
-				<div class="bee-col bee-col-1 bee-col-w12">
-					<div class="bee-block bee-block-1 bee-image"><img class="bee-center bee-autowidth" src="davetiye.png" style="max-width:500px;" alt=""></div>
-				</div>
-			</div>
-		</div>
-		<div class="bee-row bee-row-2">
-			<div class="bee-row-content">
-				<div class="bee-col bee-col-1 bee-col-w12">
-					<div class="bee-block bee-block-1 bee-divider">
-						<div class="center bee-separator" style="border-top:1px solid #dddddd;width:100%;"></div>
-					</div>
-					<div class="bee-block bee-block-2 bee-heading">
-						<h1 style="color:#3a4668;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:23px;font-weight:700;letter-spacing:normal;line-height:120%;text-align:center;margin-top:0;margin-bottom:0;"><span class="tinyMce-placeholder">Kına</span> </h1>
-					</div>
-					<div class="bee-block bee-block-3 bee-paragraph">
-						<p>Salon konumu:<br><a href="https://maps.app.goo.gl/m9G3YVj8JZjZuaK59" target="_blank" style="text-decoration: underline;" rel="noopener">https://maps.app.goo.gl/m9G3YVj8JZjZuaK59</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="bee-row bee-row-3">
-			<div class="bee-row-content">
-				<div class="bee-col bee-col-1 bee-col-w12">
-					<div class="bee-block bee-block-1 bee-divider">
-						<div class="center bee-separator" style="border-top:1px solid #dddddd;width:100%;"></div>
-					</div>
-					<div class="bee-block bee-block-2 bee-heading">
-						<h1 style="color:#3a4668;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:23px;font-weight:700;letter-spacing:normal;line-height:120%;text-align:center;margin-top:0;margin-bottom:0;"><span class="tinyMce-placeholder">Gelin alma</span> </h1>
-					</div>
-					<div class="bee-block bee-block-3 bee-paragraph">
-						<p>Kız evi konumu:<br><a href="https://maps.app.goo.gl/gUpPVKVkvRuZohvRA" target="_blank" style="text-decoration: underline;" rel="noopener">https://maps.app.goo.gl/gUpPVKVkvRuZohvRA</a>&nbsp;</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="bee-row bee-row-4">
-			<div class="bee-row-content">
-				<div class="bee-col bee-col-1 bee-col-w12">
-					<div class="bee-block bee-block-1 bee-divider">
-						<div class="center bee-separator" style="border-top:1px solid #dddddd;width:100%;"></div>
-					</div>
-					<div class="bee-block bee-block-2 bee-heading">
-						<h1 style="color:#3a4668;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:23px;font-weight:700;letter-spacing:normal;line-height:120%;text-align:center;margin-top:0;margin-bottom:0;"><span class="tinyMce-placeholder">Yemek &amp; Nikah</span> </h1>
-					</div>
-					<div class="bee-block bee-block-3 bee-paragraph">
-						<p>Memur Kardeşler Cami konumu: <br><a href="https://maps.app.goo.gl/1ngU4LmNrBwa6Li57" target="_blank" style="text-decoration: underline;" rel="noopener">https://maps.app.goo.gl/1ngU4LmNrBwa6Li57</a>&nbsp;</p>
-						<p>Otopark konumu: <br><a href="https://maps.app.goo.gl/1ngU4LmNrBwa6Li57" target="_blank" rel="noopener" style="text-decoration: underline;">https://maps.app.goo.gl/1ngU4LmNrBwa6Li57</a>&nbsp;</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<script type="text/javascript" src="https://app-rsrc.getbee.io/public/resources/preview/dark-mode/dark-mode.min.js"></script>
+    <header>
+        <h1>Fadime & Muhammed</h1>
+        <img src="davetiye.png" alt="Düğün Davetiyesi Görseli"> <!-- Davetiye görselinizin yolu -->
 
-</div></div></div><div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable"><div class="os-scrollbar-track os-scrollbar-track-off"><div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar os-scrollbar-vertical"><div class="os-scrollbar-track os-scrollbar-track-off"><div class="os-scrollbar-handle" style="height: 30.392943%; transform: translate(0px, 160.569124px);"></div></div></div><div class="os-scrollbar-corner"></div></body></html>
+    </header>
+
+    <div class="container">
+        <!-- Kına -->
+        <div class="section" id="kina">
+            <h2>Kına</h2>
+            <p><strong>Zaman:</strong> 8 Kasım Cuma 19:00</p>
+            <p><strong>Adres:</strong> Salon Hanedan 1, Fatih Bulvarı Özdemir Sk No: 3 Sultanbeyli/İstanbul</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.756493764869!2d29.2761481!3d40.964912999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad061a588e385%3A0x80a10cccd92ed0a3!2sSalon%20Hanedan!5e0!3m2!1sen!2str!4v1728298281362!5m2!1sen!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div style="text-align: center;"> <!-- Butonu ortalamak için -->
+                <a href="https://maps.app.goo.gl/kEr7YjAHQKfbEA6Q8" class="button" target="_blank">
+                    Haritada Göster <i class="fas fa-map-marker-alt"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Gelin Alma -->
+        <div class="section" id="gelin-alma">
+            <h2>Gelin Alma</h2>
+            <p><strong>Zaman:</strong> 9 Haziran Cumartesi 10:00</p>
+            <p><strong>Adres:</strong> Orta Mahalle Cansever Sokak No: 11 Tuzla/İstanbul</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d376.9695395910771!2d29.3794993!3d40.89916!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad84905adc32b%3A0x6ae21ae1179b2367!2sOrta%2C%20Cansever%20Sk.%20No%3A11%2C%2034956%20Tuzla%2F%C4%B0stanbul!5e0!3m2!1sen!2str!4v1728301219412!5m2!1sen!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div style="text-align: center;"> <!-- Butonu ortalamak için -->
+                <a href="https://maps.app.goo.gl/gUpPVKVkvRuZohvRA" class="button" target="_blank">
+                    Haritada Göster <i class="fas fa-map-marker-alt"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Nikah -->
+        <div class="section" id="dugun-salonu">
+            <h2>Yemek & Nikah</h2>
+            <p><strong>Zaman:</strong> 10 Kasım Pazar 12:30</p>
+            <p><strong>Adres:</strong> Memur Kardeşler Cami, Caher Dudayev Blv No:25 Karşıyaka/İzmir</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12494.238964393462!2d27.0495935!3d38.4747242!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bbdbaf2e4b8f19%3A0x88a51dc16c2e1f16!2sMemur%20Karde%C5%9Fler%20Cami!5e0!3m2!1sen!2str!4v1728297865220!5m2!1sen!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div style="text-align: center;"> <!-- Butonu ortalamak için -->
+                <a href="https://maps.app.goo.gl/PiF7PxJJB6roJgLi6" class="button" target="_blank">
+                    Haritada Göster <i class="fas fa-map-marker-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Bu mutlu günümüzde sizleri de yanımızda görmekten mutluluk duyarız...</p>
+    </footer>
+
+</body>
+</html>
