@@ -38,6 +38,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            visibility: hidden; /* Başlangıçta gizli olacak */
         }
         .name span {
             display: block;
@@ -50,7 +51,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="https://www.imaj-davetiye.de/media/2c/6e/41/1732976296/dugun-davetiyesi-einladungskarte-hochzeit_IMDV01069,.jpg" alt="Davetiye" class="invitation" id="invitation">
+        <img src="davetiye.png" alt="Davetiye" class="invitation" id="invitation">
         <div class="name" id="nameField"><span></span></div>
     </div>
 
@@ -73,10 +74,14 @@
         document.addEventListener("DOMContentLoaded", function () {
             const name = getQueryParam("isim") || "Davetli";
             const nameField = document.getElementById("nameField").querySelector("span");
+            const nameContainer = document.getElementById("nameField");
             const invitation = document.getElementById("invitation");
             
-            nameField.textContent = name;
-            adjustFontSize(nameField, invitation);
+            invitation.onload = function () {
+                nameField.textContent = name;
+                adjustFontSize(nameField, invitation);
+                nameContainer.style.visibility = "visible"; // Görünürlüğü aç
+            };
         });
     </script>
 </body>
