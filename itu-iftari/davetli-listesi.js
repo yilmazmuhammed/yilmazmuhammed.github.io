@@ -4963,5 +4963,19 @@ davetliler = {
   "e2eugE": "Naciye Beyza gündoğan ",
   "CSCQZQ": "Sümeyye Şimşek",
   "xfO3Bd": "Ahsen Zeynep Doğan",
-  "B74bvG": "Sevde Cesur"
+  "B74bvG": "Sevde Cesur",
+  "2GATlP": "Halid İrfan Kiliç",
+  "uXMNwV": "Muberra Aksoylu ",
+  "h4Ph3M": "sena ipek ilter",
+  "aQ9nVR": "Kubra saracoglu ",
+  "AOikzP": "Havva Nur Şirin ",
+  "ea9Dkf": "Sümeyye Şirin",
+  "pUX1qq": "Selvanur Kara Kılıç",
+  "SJE2Gl": "Enes Yanık",
+  "SZnSmK": "Zeynep Sena Akşehirli",
+  "drRphz": "Beytullah başak ",
+  "SpO26K": "Fatıma Berra Önal",
+  "xAnQ68": "Meryem Zeynep Şinik",
+  "xjJ0o9": "Seher İkra Öklü ",
+  "OTgoeq": "Furkan akkaya"
 }
