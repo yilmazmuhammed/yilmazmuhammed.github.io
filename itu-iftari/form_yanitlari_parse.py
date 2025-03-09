@@ -1,8 +1,6 @@
 import secrets
 import string
-
 import openpyxl
-
 
 # Rastgele 6 haneli eşsiz kod üretme fonksiyonu
 def generate_unique_code(existing_codes):
@@ -10,7 +8,6 @@ def generate_unique_code(existing_codes):
         code = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(6))
         if code not in existing_codes:
             return code
-
 
 def create_davetli_listesi_js(veriler):
     # JavaScript dosyasını oluştur
@@ -20,7 +17,6 @@ def create_davetli_listesi_js(veriler):
 
     with open("davetli-listesi.js", "w", encoding="utf-8") as js_dosyasi:
         js_dosyasi.write(js_icerik)
-
 
 def read_and_parse_form_yanitlari_xlsx(dosya_adi):
     # Excel dosyasını yükle
@@ -56,14 +52,11 @@ def read_and_parse_form_yanitlari_xlsx(dosya_adi):
                 satir_verisi[baslik] = str(int(degerler[0]))  # Ondalık kısımdan kurtul
             else:
                 satir_verisi[baslik] = degerler[0] if degerler else None
-        satir_verisi.pop("Zaman damgası")
-        satir_verisi.pop("Eklemek istediğiniz bir şey var mı?")
+        satir_verisi.pop("Eklemek istediğiniz bir şey var mı?", None)
         veriler.append(satir_verisi)
     return veriler
 
-
-def add_tokens_to_veriler(veriler):
-    existing_tokens = set()
+def add_tokens_to_veriler(veriler, existing_tokens):
     for veri in veriler:
         token = veri.get(TOKEN, None)
         if not token:
@@ -71,7 +64,6 @@ def add_tokens_to_veriler(veriler):
             veri[TOKEN] = token
         existing_tokens.add(token)
     return veriler
-
 
 def create_davetliler_xlsx(veriler, dosya_adi):
     # Excel dosyasını oluştur
@@ -89,18 +81,39 @@ def create_davetliler_xlsx(veriler, dosya_adi):
     # Yeni Excel dosyasını kaydet
     wb.save(dosya_adi)
 
-
 TOKEN = "token"
 OKUL = "Okulunuz"
 ISIM = "Adınız Soyadınız"
 TELEFON = "Telefon Numaranız (5xxxxxxxxx)"
+ZAMAN_DAMGASI = "Zaman damgası"
 
+# İlk dosyayı oku ve parse et
 veriler = read_and_parse_form_yanitlari_xlsx("İTÜ İftarı - 2025 (Yanıtlar).xlsx")
-veriler = add_tokens_to_veriler(veriler)
-create_davetli_listesi_js(veriler)
-create_davetliler_xlsx(veriler, "itu_iftari_daverliler.xlsx")
+
+# İkinci dosyayı oku ve parse et
+try:
+    mevcut_veriler = read_and_parse_form_yanitlari_xlsx("itu_iftari_daverliler.xlsx")
+    mevcut_tokenlar = set(veri[TOKEN] for veri in mevcut_veriler if TOKEN in veri)
+except FileNotFoundError:
+    mevcut_veriler = []
+    mevcut_tokenlar = set()
+
+# İlk dosyadaki verileri ikinci dosyadaki verilerle birleştir, token'ları koru
+guncellenmis_veriler = []
+for veri in veriler:
+    # Eğer bu veri zaten mevcut verilerde varsa, token'ı koru
+    mevcut_veri = next((v for v in mevcut_veriler if v.get(ZAMAN_DAMGASI) == veri.get(ZAMAN_DAMGASI)), None)
+    if mevcut_veri:
+        veri[TOKEN] = mevcut_veri[TOKEN]
+    guncellenmis_veriler.append(veri)
+
+# Yeni eklenen kayıtlara token atama işlemini gerçekleştir
+guncellenmis_veriler = add_tokens_to_veriler(guncellenmis_veriler, mevcut_tokenlar)
+
+# Güncellenmiş verilerle .js dosyasını ve ikinci Excel dosyasını oluştur
+create_davetli_listesi_js(guncellenmis_veriler)
+create_davetliler_xlsx(guncellenmis_veriler, "itu_iftari_daverliler.xlsx")
 
 # Sonuçları yazdır
-for veri in veriler[:10]:
-    # print(veri)
+for veri in guncellenmis_veriler[:10]:
     print(veri[TOKEN], "\t-\t", veri[TELEFON], "\t-\t", veri[OKUL], "\t-\t", veri[ISIM])
