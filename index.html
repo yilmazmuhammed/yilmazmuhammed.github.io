@@ -3,169 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fadime & Muhammed</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
-    <!-- Font Awesome (ikonlar için) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrQkTy3Xo9L9K4HqDkJhX5PzYV5yp7xZyF4N6EJIsjdZ0+1yXzUbU5J1+YsyHeXxGq1K8EJQZ7Yx+M4KQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Kişiye Özel Davetiye</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kurale&display=swap');
+
         body {
-            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
             margin: 0;
-            padding: 0;
-            background-color: #fdf6f0;
-            color: #333;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        header img {
-            width: 95%; /* Görselin tam görünmesi için %100 genişlik */
-            height: auto; /* Orantılı yükseklik */
-        }
-        header h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3em;
-            color: #a0522d; /* Başlık rengi */
-            margin: 10px 0;
-        }
-        .divider {
-            //border-top: 2px solid #e0a899; /* Ayırıcı rengi */
-            margin: 20px 0; /* Üst ve alt boşluk */
-			text-align:center;
         }
         .container {
-            padding: 20px;
-            max-width: 1000px;
-            margin: auto;
-        }
-        .section {
-            margin-bottom: 40px;
-            text-align: center; /* Başlıkları ortalamak için */
-        }
-        .section h2 {
-            border-bottom: 2px solid #e0a899;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            color: #a0522d;
-        }
-        .map-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 oranı */
-            height: 0;
-            overflow: hidden;
-            margin-bottom: 10px; /* Harita ile buton arasında boşluk */
-        }
-        .map-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #a0522d;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            text-align: center; /* Butonun ortalanması için */
-        }
-        .button:hover {
-            background-color: #8b4513;
-        }
-        footer {
+            max-width: 100%;
             text-align: center;
-            padding: 20px;
-            background-color: #e0a899;
-            color: white;
         }
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 2em;
-                text-align: center;
-                padding: 0 10px;
-            }
+        .invitation {
+            width: 100%;
+            max-width: 600px; /* Görselin genişliği */
+            height: auto;
+            display: block;
         }
-		.container {
-			padding: 20px;
-			max-width: 400px; /* Maksimum genişliği buradan ayarlayabilirsin */
-			margin: auto;
-		}
-		header {
-			padding: 20px 0px 0px 0px ;
-			max-width: 500px; /* Maksimum genişliği buradan ayarlayabilirsin */
-			margin: auto;
-		}
-		.venue {
-			display: block; /* Mekan ismini alt satıra almak için */
-			font-size: 0.8em; /* Font boyutunu ayarlamak için */
-			color: #7a5a4c; /* Mekan isminin rengi */
-		}
+        .name {
+            position: absolute;
+            left: 30%; /* Görselin solundan %15 boşluk */
+            top: 43%; /* Görselin üstünden %10 boşluk */
+            width: 55%; /* Kalan %60 genişlik */
+            height: 5%; /* Kalan %20 yükseklik */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Yazıyı sola hizala */
+            font-weight: bold;
+            color: #041c7a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            visibility: hidden; /* Başlangıçta gizli olacak */
+            font-family: 'Kurale', serif;
+            padding-left: 5px; /* Sol hizalama için küçük bir boşluk */
+        }
+        .name span {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            text-align: left;
+            word-break: break-word;
+        }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>Fadime & Muhammed</h1>
-        <img src="davetiye.png" alt="Düğün Davetiyesi Görseli"> <!-- Davetiye görselinizin yolu -->
-
-    </header>
-
     <div class="container">
-        <!-- Kına -->
-        <div class="section" id="kina">
-            <h2>Kına</h2>
-            <p><strong>Zaman:</strong> 8 Kasım Cuma 19:00</p>
-            <p><strong>Adres:</strong> Salon Hanedan 1, Fatih Bulvarı Özdemir Sk No: 3 Sultanbeyli/İstanbul</p>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.756493764869!2d29.2761481!3d40.964912999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad061a588e385%3A0x80a10cccd92ed0a3!2sSalon%20Hanedan!5e0!3m2!1sen!2str!4v1728298281362!5m2!1sen!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div style="text-align: center;"> <!-- Butonu ortalamak için -->
-                <a href="https://maps.app.goo.gl/kEr7YjAHQKfbEA6Q8" class="button" target="_blank">
-                    Haritada Göster <i class="fas fa-map-marker-alt"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- Gelin Alma -->
-        <div class="section" id="gelin-alma">
-            <h2>Gelin Alma</h2>
-            <p><strong>Zaman:</strong> 9 Kasım Cumartesi 10:00</p>
-            <p><strong>Adres:</strong> Orta Mahalle Cansever Sokak No: 11 Tuzla/İstanbul</p>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d376.9695395910771!2d29.3794993!3d40.89916!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad84905adc32b%3A0x6ae21ae1179b2367!2sOrta%2C%20Cansever%20Sk.%20No%3A11%2C%2034956%20Tuzla%2F%C4%B0stanbul!5e0!3m2!1sen!2str!4v1728301219412!5m2!1sen!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div style="text-align: center;"> <!-- Butonu ortalamak için -->
-                <a href="https://maps.app.goo.gl/gUpPVKVkvRuZohvRA" class="button" target="_blank">
-                    Haritada Göster <i class="fas fa-map-marker-alt"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- Nikah -->
-        <div class="section" id="dugun-salonu">
-            <h2>Yemek & Nikah</h2>
-            <p><strong>Zaman:</strong> 10 Kasım Pazar 12:30</p>
-            <p><strong>Adres:</strong> Memur Kardeşler Cami, Caher Dudayev Blv No:25 Karşıyaka/İzmir</p>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12494.238964393462!2d27.0495935!3d38.4747242!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bbdbaf2e4b8f19%3A0x88a51dc16c2e1f16!2sMemur%20Karde%C5%9Fler%20Cami!5e0!3m2!1sen!2str!4v1728297865220!5m2!1sen!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div style="text-align: center;"> <!-- Butonu ortalamak için -->
-                <a href="https://maps.app.goo.gl/PiF7PxJJB6roJgLi6" class="button" target="_blank">
-                    Haritada Göster <i class="fas fa-map-marker-alt"></i>
-                </a>
-            </div>
-        </div>
+        <img src="itu-iftari-davetiye.png" alt="Davetiye" class="invitation" id="invitation">
+        <div class="name" id="nameField"><span></span></div>
     </div>
 
-    <footer>
-        <p>Bu mutlu günümüzde sizleri de yanımızda görmekten mutluluk duyarız...</p>
-    </footer>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param)?.trim();
+        }
 
+        function adjustFontSize(element, referenceElement) {
+            let fontSize = referenceElement.clientWidth * 0.05; // Görselin genişliğinin %5'i kadar
+            element.style.fontSize = fontSize + "px";
+            while (element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) {
+                fontSize -= 1;
+                element.style.fontSize = fontSize + "px";
+                if (fontSize < 10) break; /* Çok küçülmesini önlemek için */
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const name = getQueryParam("isim") || "Davetli";
+            const nameField = document.getElementById("nameField").querySelector("span");
+            const nameContainer = document.getElementById("nameField");
+            const invitation = document.getElementById("invitation");
+
+            invitation.onload = function () {
+                nameField.textContent = name;
+                adjustFontSize(nameField, invitation);
+                nameContainer.style.visibility = "visible"; // Görünürlüğü aç
+            };
+        });
+    </script>
 </body>
 </html>
