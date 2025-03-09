@@ -22,27 +22,27 @@
         }
         .invitation {
             width: 100%;
-            max-width: 600px; /* Görselin genişliği */
+            max-width: 600px;
             height: auto;
             display: block;
         }
         .name {
             position: absolute;
-            left: 30%; /* Görselin solundan %15 boşluk */
-            top: 43%; /* Görselin üstünden %10 boşluk */
-            width: 55%; /* Kalan %60 genişlik */
-            height: 5%; /* Kalan %20 yükseklik */
+            left: 30%; /* Görselin solundan %30 boşluk */
+            top: 43%; /* Görselin üstünden %43 boşluk */
+            width: 55%; /* Kalan %55 genişlik */
+            height: 5%; /* Kalan %5 yükseklik */
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Yazıyı sola hizala */
+            justify-content: flex-start;
             font-weight: bold;
-            color: #041c7a;
+            color: #041c7a; /* Yeni renk */
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            visibility: hidden; /* Başlangıçta gizli olacak */
             font-family: 'Kurale', serif;
-            padding-left: 5px; /* Sol hizalama için küçük bir boşluk */
+            padding-left: 5px;
+            visibility: hidden;
         }
         .name span {
             display: block;
@@ -52,6 +52,7 @@
             word-break: break-word;
         }
     </style>
+    <script src="itu-iftari/davetli-listesi.js"></script>
 </head>
 <body>
     <div class="container">
@@ -66,25 +67,30 @@
         }
 
         function adjustFontSize(element, referenceElement) {
-            let fontSize = referenceElement.clientWidth * 0.05; // Görselin genişliğinin %5'i kadar
+            let fontSize = referenceElement.clientWidth * 0.05;
             element.style.fontSize = fontSize + "px";
             while (element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) {
                 fontSize -= 1;
                 element.style.fontSize = fontSize + "px";
-                if (fontSize < 10) break; /* Çok küçülmesini önlemek için */
+                if (fontSize < 10) break;
             }
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            const name = getQueryParam("isim") || "Davetli";
+            const token = getQueryParam("t");
             const nameField = document.getElementById("nameField").querySelector("span");
             const nameContainer = document.getElementById("nameField");
             const invitation = document.getElementById("invitation");
 
+            if (!token || !davetliler[token]) {
+                nameField.textContent = "Davetli";
+            } else {
+                nameField.textContent = davetliler[token];
+            }
+
             invitation.onload = function () {
-                nameField.textContent = name;
                 adjustFontSize(nameField, invitation);
-                nameContainer.style.visibility = "visible"; // Görünürlüğü aç
+                nameContainer.style.visibility = "visible";
             };
         });
     </script>
