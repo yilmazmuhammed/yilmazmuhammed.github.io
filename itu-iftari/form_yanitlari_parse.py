@@ -15,7 +15,7 @@ def generate_unique_code(existing_codes):
 def create_davetli_listesi_js(veriler):
     # JavaScript dosyasını oluştur
     js_icerik = "davetliler = {\n"
-    js_icerik += ",\n".join(f'  "{veri[TOKEN]}": "{veri[ISIM]}"' for veri in veriler)
+    js_icerik += ",\n".join(f'  "{veri[COL_TOKEN]}": "{veri[COL_ISIM]}"' for veri in veriler)
     js_icerik += "\n}\n"
 
     with open("davetli-listesi.js", "w", encoding="utf-8") as js_dosyasi:
@@ -63,10 +63,10 @@ def read_and_parse_form_yanitlari_xlsx(dosya_adi):
 
 def add_tokens_to_veriler(veriler, existing_tokens):
     for veri in veriler:
-        token = veri.get(TOKEN, None)
+        token = veri.get(COL_TOKEN, None)
         if not token:
             token = generate_unique_code(existing_tokens)
-            veri[TOKEN] = token
+            veri[COL_TOKEN] = token
         existing_tokens.add(token)
     return veriler
 
@@ -93,37 +93,39 @@ def merge_yanitlar_ve_davetliler_verileri(veriler, mevcut_veriler):
     guncellenmis_veriler = []
     for veri in veriler:
         # Eğer bu veri zaten mevcut verilerde varsa, token'ı koru
-        mevcut_veri = next((v for v in mevcut_veriler if v.get(ZAMAN_DAMGASI) == veri.get(ZAMAN_DAMGASI)), None)
+        mevcut_veri = next((v for v in mevcut_veriler if v.get(COL_ZAMAN_DAMGASI) == veri.get(COL_ZAMAN_DAMGASI)), None)
         if mevcut_veri:
-            veri[TOKEN] = mevcut_veri[TOKEN]
+            veri[COL_TOKEN] = mevcut_veri[COL_TOKEN]
         guncellenmis_veriler.append(veri)
     return guncellenmis_veriler
 
 
-FORM_YANITLARI_DOSYASI = "İTÜ İftarı - 2025 (Yanıtlar).xlsx"
-DAVETLILER_DOSYASI = "itu_iftari_davetliler.xlsx"
-TOKEN = "token"
-OKUL = "Okulunuz"
-ISIM = "Adınız Soyadınız"
-TELEFON = "Telefon Numaranız (5xxxxxxxxx)"
-ZAMAN_DAMGASI = "Zaman damgası"
+FILE_FORM_YANITLARI = "İTÜ İftarı - 2025 (Yanıtlar).xlsx"
+FILE_DAVETLILER = "itu_iftari_davetliler.xlsx"
 
-# İlk dosyayı oku ve parse et
-veriler = read_and_parse_form_yanitlari_xlsx(FORM_YANITLARI_DOSYASI)
-mevcut_veriler = []
-if os.path.exists(DAVETLILER_DOSYASI):
-    mevcut_veriler = read_and_parse_form_yanitlari_xlsx(DAVETLILER_DOSYASI)
+COL_TOKEN = "token"
+COL_OKUL = "Okulunuz"
+COL_ISIM = "Adınız Soyadınız"
+COL_TELEFON = "Telefon Numaranız (5xxxxxxxxx)"
+COL_ZAMAN_DAMGASI = "Zaman damgası"
 
-guncellenmis_veriler = merge_yanitlar_ve_davetliler_verileri(veriler, mevcut_veriler)
-mevcut_tokenlar = set(veri[TOKEN] for veri in guncellenmis_veriler if TOKEN in veri)
+if __name__ == '__main__':
+    # İlk dosyayı oku ve parse et
+    veriler = read_and_parse_form_yanitlari_xlsx(FILE_FORM_YANITLARI)
+    mevcut_veriler = []
+    if os.path.exists(FILE_DAVETLILER):
+        mevcut_veriler = read_and_parse_form_yanitlari_xlsx(FILE_DAVETLILER)
 
-# Yeni eklenen kayıtlara token atama işlemini gerçekleştir
-guncellenmis_veriler = add_tokens_to_veriler(guncellenmis_veriler, mevcut_tokenlar)
+    guncellenmis_veriler = merge_yanitlar_ve_davetliler_verileri(veriler, mevcut_veriler)
+    mevcut_tokenlar = set(veri[COL_TOKEN] for veri in guncellenmis_veriler if COL_TOKEN in veri)
 
-# Güncellenmiş verilerle .js dosyasını ve ikinci Excel dosyasını oluştur
-create_davetli_listesi_js(guncellenmis_veriler)
-create_davetliler_xlsx(guncellenmis_veriler, DAVETLILER_DOSYASI)
+    # Yeni eklenen kayıtlara token atama işlemini gerçekleştir
+    guncellenmis_veriler = add_tokens_to_veriler(guncellenmis_veriler, mevcut_tokenlar)
 
-# Sonuçları yazdır
-for veri in guncellenmis_veriler[:10]:
-    print(veri[TOKEN], "\t-\t", veri[TELEFON], "\t-\t", veri[OKUL], "\t-\t", veri[ISIM])
+    # Güncellenmiş verilerle .js dosyasını ve ikinci Excel dosyasını oluştur
+    create_davetli_listesi_js(guncellenmis_veriler)
+    create_davetliler_xlsx(guncellenmis_veriler, FILE_DAVETLILER)
+
+    # Sonuçları yazdır
+    for veri in guncellenmis_veriler[:10]:
+        print(veri[COL_TOKEN], "\t-\t", veri[COL_TELEFON], "\t-\t", veri[COL_OKUL], "\t-\t", veri[COL_ISIM])
