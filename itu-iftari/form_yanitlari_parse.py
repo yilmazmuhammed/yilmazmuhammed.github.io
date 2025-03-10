@@ -90,13 +90,14 @@ def create_davetliler_xlsx(veriler, dosya_adi):
 
 def merge_yanitlar_ve_davetliler_verileri(veriler, mevcut_veriler):
     # İlk dosyadaki verileri ikinci dosyadaki verilerle birleştir, token'ları koru
-    guncellenmis_veriler = []
+    guncellenmis_veriler = mevcut_veriler[:]
     for veri in veriler:
         # Eğer bu veri zaten mevcut verilerde varsa, token'ı koru
         mevcut_veri = next((v for v in mevcut_veriler if v.get(COL_ZAMAN_DAMGASI) == veri.get(COL_ZAMAN_DAMGASI)), None)
         if mevcut_veri:
             veri[COL_TOKEN] = mevcut_veri[COL_TOKEN]
-        guncellenmis_veriler.append(veri)
+        if veri not in guncellenmis_veriler:
+            guncellenmis_veriler.append(veri)
     return guncellenmis_veriler
 
 
