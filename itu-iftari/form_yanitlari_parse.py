@@ -119,6 +119,7 @@ COL_OKUL = "Okulunuz"
 COL_ISIM = "Adınız Soyadınız"
 COL_TELEFON = "Telefon Numaranız (5xxxxxxxxx)"
 COL_ZAMAN_DAMGASI = "Zaman damgası"
+COL_STATUS = "Mesaj gönderildi mi?"
 
 if __name__ == '__main__':
     # İlk dosyayı oku ve parse et
