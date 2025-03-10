@@ -5028,5 +5028,10 @@ davetliler = {
   "KTvQPB": "Sultan",
   "0EirW8": "Türker Emre Saraç",
   "Snecud": "Ahmet Bera Çakmak",
-  "ugNPnz": "Ozan özyurt"
+  "ugNPnz": "Ozan özyurt",
+  "afifem": "Afife Atıcı",
+  "mq12we3": "Saliha Kılınç",
+  "mq12we4": "Zeynep Hilal Demirci",
+  "mq12we5": "Başak Demirci Kaplan",
+  "fadimem": "Fadime YILMAZ"
 }
