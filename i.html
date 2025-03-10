@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İTÜ İftarı Davetiyesi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kurale&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .container {
+            position: relative;
+            max-width: 100%;
+            text-align: center;
+        }
+        .invitation {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
+        }
+        .name {
+            position: absolute;
+            left: 30%; /* Görselin solundan %30 boşluk */
+            top: 43%; /* Görselin üstünden %43 boşluk */
+            width: 55%; /* Kalan %55 genişlik */
+            height: 5%; /* Kalan %5 yükseklik */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            font-weight: bold;
+            color: #041c7a; /* Yeni renk */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Kurale', serif;
+            padding-left: 5px;
+            visibility: hidden;
+        }
+        .name span {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            text-align: left;
+            word-break: break-word;
+        }
+    </style>
+    <script src="itu-iftari/davetli-listesi.js"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJ60F022LH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BJ60F022LH');
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <img src="itu-iftari/itu-iftari-davetiy-itulu.png" alt="Davetiye" class="invitation" id="invitation">
+        <div class="name" id="nameField"><span></span></div>
+    </div>
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param)?.trim();
+        }
+
+        function adjustFontSize(element, referenceElement) {
+            let fontSize = referenceElement.clientWidth * 0.05;
+            element.style.fontSize = fontSize + "px";
+            while (element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) {
+                fontSize -= 1;
+                element.style.fontSize = fontSize + "px";
+                if (fontSize < 10) break;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const token = getQueryParam("t");
+            const nameField = document.getElementById("nameField").querySelector("span");
+            const nameContainer = document.getElementById("nameField");
+            const invitation = document.getElementById("invitation");
+
+            if (!token || !davetliler[token]) {
+                window.location.href = "/404-not-found"
+            } else {
+                nameField.textContent = davetliler[token];
+            }
+
+            invitation.onload = function () {
+                adjustFontSize(nameField, invitation);
+                nameContainer.style.visibility = "visible";
+            };
+        });
+    </script>
+</body>
+</html>
