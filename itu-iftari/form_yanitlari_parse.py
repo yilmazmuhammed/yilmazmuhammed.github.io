@@ -71,34 +71,44 @@ def add_tokens_to_veriler(veriler, existing_tokens):
     return veriler
 
 
-def create_davetliler_xlsx(veriler, dosya_adi):
+def create_davetliler_xlsx(davetliler, dosya_adi):
     # Excel dosyasını oluştur
     wb = openpyxl.Workbook()
     ws = wb.active
 
     # Sütun başlıklarını belirle (dictionary'nin key'leri)
-    sutun_basliklari = list(veriler[0].keys())
+    sutun_basliklari = list(davetliler[0].keys())
     ws.append(sutun_basliklari)
 
     # Verileri ekle
-    for veri in veriler:
-        ws.append([veri[key] for key in sutun_basliklari])
+    for davetli in davetliler:
+        ws.append([davetli.get(key, "") for key in sutun_basliklari])
 
     # Yeni Excel dosyasını kaydet
     wb.save(dosya_adi)
 
 
-def merge_yanitlar_ve_davetliler_verileri(veriler, mevcut_veriler):
+def davetli_listede_var_mi(davetli, davetliler):
+    for d in davetliler:
+        if d.get(COL_ZAMAN_DAMGASI) == davetli.get(COL_ZAMAN_DAMGASI) and d.get(COL_ISIM) == davetli.get(COL_ISIM):
+            return True
+    return False
+
+
+def merge_yanitlar_ve_davetliler_verileri(davetliler, mevcut_davetliler):
     # İlk dosyadaki verileri ikinci dosyadaki verilerle birleştir, token'ları koru
-    guncellenmis_veriler = mevcut_veriler[:]
-    for veri in veriler:
+    guncellenmis_davetliler = mevcut_davetliler[:]
+    for davetli in davetliler:
         # Eğer bu veri zaten mevcut verilerde varsa, token'ı koru
-        mevcut_veri = next((v for v in mevcut_veriler if v.get(COL_ZAMAN_DAMGASI) == veri.get(COL_ZAMAN_DAMGASI)), None)
-        if mevcut_veri:
-            veri[COL_TOKEN] = mevcut_veri[COL_TOKEN]
-        if veri not in guncellenmis_veriler:
-            guncellenmis_veriler.append(veri)
-    return guncellenmis_veriler
+        mevcut_davetli = next(
+            (v for v in mevcut_davetliler if
+             v.get(COL_ZAMAN_DAMGASI) == davetli.get(COL_ZAMAN_DAMGASI) and v.get(COL_ISIM) == davetli.get(COL_ISIM)),
+            None)
+        if mevcut_davetli:
+            davetli[COL_TOKEN] = mevcut_davetli[COL_TOKEN]
+        if not davetli_listede_var_mi(davetli, guncellenmis_davetliler):
+            guncellenmis_davetliler.append(davetli)
+    return guncellenmis_davetliler
 
 
 FILE_FORM_YANITLARI = "İTÜ İftarı - 2025 (Yanıtlar).xlsx"
