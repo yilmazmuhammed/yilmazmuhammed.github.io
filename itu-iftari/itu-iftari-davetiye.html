@@ -95,7 +95,7 @@
             const invitation = document.getElementById("invitation");
 
             if (!token || !davetliler[token]) {
-                nameField.textContent = "Davetli";
+                window.location.href = "/404-not-found"
             } else {
                 nameField.textContent = davetliler[token];
             }
