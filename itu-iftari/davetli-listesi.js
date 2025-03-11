@@ -5505,5 +5505,6 @@ davetliler = {
   "z3csgj": "İremnur demir",
   "1eQDsz": "Figen Atalay",
   "eVqD1F": "Hatice karabulut",
-  "6MAdbG": "Nisanur Aydın"
+  "6MAdbG": "Nisanur Aydın",
+  "e1b4kY": "Kübra Kaya"
 }
