@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afife & Ahmet Bera</title>
+
+    <meta property="og:title" content="Afife & Ahmet Bera" />
+    <meta property="og:description" content="Konum için tıklayınız..." />
+    <meta property="og:image" content="https://dvty.tr/img/abc-kapak.jpg" />
+    <meta property="og:url" content="https://dvty.tr/abc.html" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+    <!-- Font Awesome (ikonlar için) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrQkTy3Xo9L9K4HqDkJhX5PzYV5yp7xZyF4N6EJIsjdZ0+1yXzUbU5J1+YsyHeXxGq1K8EJQZ7Yx+M4KQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf6f0;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header img {
+            width: 95%; /* Görselin tam görünmesi için %100 genişlik */
+            height: auto; /* Orantılı yükseklik */
+        }
+        header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+            color: #a0522d; /* Başlık rengi */
+            margin: 10px 0;
+        }
+        .divider {
+            //border-top: 2px solid #e0a899; /* Ayırıcı rengi */
+            margin: 20px 0; /* Üst ve alt boşluk */
+			text-align:center;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .section {
+            margin-bottom: 40px;
+            text-align: center; /* Başlıkları ortalamak için */
+        }
+        .section h2 {
+            border-bottom: 2px solid #e0a899;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #a0522d;
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 oranı */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 10px; /* Harita ile buton arasında boşluk */
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #a0522d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-align: center; /* Butonun ortalanması için */
+        }
+        .button:hover {
+            background-color: #8b4513;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #e0a899;
+            color: white;
+        }
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+                text-align: center;
+                padding: 0 10px;
+            }
+        }
+		.container {
+			padding: 20px;
+			max-width: 400px; /* Maksimum genişliği buradan ayarlayabilirsin */
+			margin: auto;
+		}
+		header {
+			padding: 20px 0px 0px 0px ;
+			max-width: 500px; /* Maksimum genişliği buradan ayarlayabilirsin */
+			margin: auto;
+		}
+		.venue {
+			display: block; /* Mekan ismini alt satıra almak için */
+			font-size: 0.8em; /* Font boyutunu ayarlamak için */
+			color: #7a5a4c; /* Mekan isminin rengi */
+		}
+    </style>
+</head>
+<body>
+
+    <header>
+<!--        <h1>Afife & Ahmet Bera</h1>-->
+        <img src="img/abc-kapak.jpg" alt="Düğün Davetiyesi">
+    </header>
+
+    <div class="container">
+        <!-- Gelin Alma -->
+        <div class="section" id="gelin-alma">
+            <h2>Gelin Alma</h2>
+            <p><strong>Zaman:</strong> 31 Mayıs Cumartesi 15:00</p>
+            <p><strong>Adres:</strong> Selvilitepe Mah. Sena Sk. No: 7 (Lifecity) </br>Turgutlu/Manisa</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3123.257752265654!2d27.693314075916955!3d38.48169397181587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzjCsDI4JzU0LjEiTiAyN8KwNDEnNDUuMiJF!5e0!3m2!1str!2str!4v1745781264171!5m2!1str!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div style="text-align: center;"> <!-- Butonu ortalamak için -->
+                <a href="https://maps.app.goo.gl/ZKsLNUQMagqecARNA" class="button" target="_blank">
+                    Haritada Göster <i class="fas fa-map-marker-alt"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Nikah -->
+        <div class="section" id="dugun-salonu">
+            <h2>Yemek & Nikah</h2>
+            <p><strong>Zaman:</strong> 31 Mayıs Cumartesi 19:30</p>
+            <p><strong>Adres:</strong> Utopya Düğün Salonları Sarı Salon </br>Akhisar/Manisa </p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3102.3359755381903!2d27.846787499999998!3d38.961995699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b9d3c44f19bb9f%3A0x3d100d39b3f976ef!2zVXRvcHlhIETDvMSfw7xuIFNhbG9ubGFyxLE!5e0!3m2!1str!2str!4v1745781523527!5m2!1str!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div style="text-align: center;"> <!-- Butonu ortalamak için -->
+                <a href="https://maps.app.goo.gl/2At1TW9qbtHNu11S6" class="button" target="_blank">
+                    Haritada Göster <i class="fas fa-map-marker-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <img src="img/abc.jpeg" alt="Düğün Davetiyesi">
+    </header>
+
+    <footer>
+        <p>Bu mutlu günümüzde sizleri de yanımızda görmekten mutluluk duyarız...</p>
+    </footer>
+
+</body>
+</html>
