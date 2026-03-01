@@ -118,6 +118,7 @@
         window.location.href = "/404-not-found";
         return;
     }
+});
 */
     // Vercel üzerindeki Serverless Function'a istek atıyoruz
     fetch(`/api/davetli-getir?t=${token}`)
@@ -147,7 +148,6 @@
             console.error("Hata:", error);
             window.location.href = "/404-not-found";
         });
-});
     </script>
 </body>
 </html>
