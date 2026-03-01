@@ -135,8 +135,8 @@
             console.log("token:", token, "not found");
             window.location.href = "/404-not-found"
         } else {
-            console.log(davetliler[token]["İsim"]);
-            nameField.textContent = davetliler[token]["İsim"];
+            console.log(davetliler[token]);
+            nameField.textContent = davetliler[token];
         }
 
         invitation.onload = function () {
