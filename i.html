@@ -107,6 +107,7 @@
             console.log("token:", token, "not found");
             window.location.href = "/404-not-found"
         } else {
+            console.log(davetliler[token]);
             nameField.textContent = davetliler[token];
         }
 
@@ -115,6 +116,7 @@
             nameContainer.style.visibility = "visible";
         };
     });
+
 </script>
 </body>
 </html>

@@ -85,6 +85,36 @@ def add_tokens_to_veriler(veriler, existing_tokens):
     return veriler
 
 
+ITULU_SMS = """Sayın {isim} ,
+İTÜ İFTARI YAKLAŞIYOR !
+
+Değerli İTÜ'lü, kaydınız alınmıştır. İlginiz için teşekkür ederiz. Kampüse İTÜ kimliğinizle girebilirsiniz. Davetiyenize linkten ulaşabilirsiniz.
+
+https://dvty.tr/i?t={token}
+
+İftarımızda görüşmek üzere. 
+"""
+DIGER_SMS = """Sayın {isim} ,
+İTÜ İFTARI YAKLAŞIYOR !
+
+Değerli misafirimiz kaydınız alınmıştır. İlginiz için teşekkür ederiz. Kampüse giriş kartınıza linkten ulaşabilirsiniz.
+
+https://dvty.tr/?t={token}
+
+İftarımızda görüşmek üzere. 
+"""
+
+
+def add_msg_to_veriler(veriler):
+    for veri in veriler:
+        if veri[COL_OKUL] == "İTÜ":
+            sms_data = ITULU_SMS.format(isim=veri[COL_ISIM], token=veri[COL_TOKEN])
+        else:
+            sms_data = DIGER_SMS.format(isim=veri[COL_ISIM], token=veri[COL_TOKEN])
+        veri[COL_SMS] = sms_data.replace('\n', '\\n\n')
+    return veriler
+
+
 def create_davetliler_xlsx(davetliler, dosya_adi):
     # Excel dosyasını oluştur
     wb = openpyxl.Workbook()
@@ -129,6 +159,7 @@ FILE_FORM_YANITLARI = "İtü iftar 26 (Yanıtlar).xlsx"
 FILE_DAVETLILER = "itu_iftari_davetliler.xlsx"
 
 COL_TOKEN = "token"
+COL_SMS = "sms"
 COL_OKUL = "Okulunuz"
 COL_ISIM = "Adınız Soyadınız"
 COL_CINSIYET = "Size nasıl hitap etmemizi istersiniz?"
@@ -150,6 +181,7 @@ if __name__ == '__main__':
 
     # Yeni eklenen kayıtlara token atama işlemini gerçekleştir
     guncellenmis_veriler = add_tokens_to_veriler(guncellenmis_veriler, mevcut_tokenlar)
+    guncellenmis_veriler = add_msg_to_veriler(guncellenmis_veriler)
 
     # Güncellenmiş verilerle .js dosyasını ve ikinci Excel dosyasını oluştur
     create_davetli_listesi_js(guncellenmis_veriler)
