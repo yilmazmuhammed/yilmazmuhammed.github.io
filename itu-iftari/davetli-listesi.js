@@ -1,6 +1,3 @@
 davetliler = {
-    "hello": {
-        "İsim": "hello my worl",
-        "tip": "i"
-    }
+    "hello": "ahmet said"
 }
