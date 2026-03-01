@@ -56,6 +56,7 @@
             word-break: break-word;
         }
     </style>
+    <script src="itu-iftari/davetli-listesi.js"></script>
 
 
     <!-- Google tag (gtag.js) -->
@@ -102,60 +103,45 @@
         const nameContainer = document.getElementById("nameField");
         const invitation = document.getElementById("invitation");
 
-        // Vercel üzerindeki Serverless Function'a istek atıyoruz
-        fetch(`/api/davetli-getir?t=${token}`)
-            .then(response => {
-                if (!response.ok) {
-                    // Eğer 404 dönerse (davetli bulunamazsa)
-                    throw new Error("Davetli bulunamadı");
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Sunucudan sadece "isim" verisi geldi, bunu ekrana yazdırıyoruz
-                nameField.textContent = data.isim;
-
-                // Görsel yüklendiyse ismi göster
-                if (invitation.complete) {
-                    adjustFontSize(nameField, invitation);
-                    nameContainer.style.visibility = "visible";
-                } else {
-                    invitation.onload = function () {
-                        adjustFontSize(nameField, invitation);
-                        nameContainer.style.visibility = "visible";
-                    };
-                }
-            })
-            .catch(error => {
-                console.error("Hata:", error);
-                window.location.href = "/404-not-found";
-            });
-        // if (!token || !davetliler[token]) {
-        //     window.location.href = "/404-not-found"
-        // } else {
-        //     nameField.textContent = davetliler[token];
-        // }
+        // // Vercel üzerindeki Serverless Function'a istek atıyoruz
+        // fetch(`/api/davetli-getir?t=${token}`)
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             // Eğer 404 dönerse (davetli bulunamazsa)
+        //             throw new Error("Davetli bulunamadı");
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         // Sunucudan sadece "isim" verisi geldi, bunu ekrana yazdırıyoruz
+        //         nameField.textContent = data.isim;
+        //
+        //         // Görsel yüklendiyse ismi göster
+        //         if (invitation.complete) {
+        //             adjustFontSize(nameField, invitation);
+        //             nameContainer.style.visibility = "visible";
+        //         } else {
+        //             invitation.onload = function () {
+        //                 adjustFontSize(nameField, invitation);
+        //                 nameContainer.style.visibility = "visible";
+        //             };
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error("Hata:", error);
+        //         window.location.href = "/404-not-found";
+        //     });
+        if (!token || !davetliler[token]) {
+            window.location.href = "/404-not-found"
+        } else {
+            nameField.textContent = davetliler[token];
+        }
 
         invitation.onload = function () {
             adjustFontSize(nameField, invitation);
             nameContainer.style.visibility = "visible";
         };
     });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get("t")?.trim();
-
-        const nameField = document.getElementById("nameField").querySelector("span");
-        const nameContainer = document.getElementById("nameField");
-        const invitation = document.getElementById("invitation");
-
-        if (!token) {
-            window.location.href = "/404-not-found";
-            return;
-        }
-    });
-
 
 </script>
 </body>
