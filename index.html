@@ -15,17 +15,20 @@
             background-color: #f0f0f0;
             margin: 0;
         }
+
         .container {
             position: relative;
             max-width: 100%;
             text-align: center;
         }
+
         .invitation {
             width: 100%;
             max-width: 600px;
             height: auto;
             display: block;
         }
+
         .name {
             position: absolute;
             left: 30%; /* Görselin solundan %30 boşluk */
@@ -44,6 +47,7 @@
             padding-left: 5px;
             visibility: hidden;
         }
+
         .name span {
             display: block;
             max-width: 100%;
@@ -57,97 +61,102 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJ60F022LH"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'G-BJ60F022LH');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-BJ60F022LH');
     </script>
 
 </head>
 <body>
-    <div class="container">
-        <img src="itu-iftari/itu-iftari-davetiye.png" alt="Davetiye" class="invitation" id="invitation">
-        <div class="name" id="nameField"><span></span></div>
-    </div>
+<div class="container">
+    <img src="itu-iftari/itu-iftari-davetiye.png" alt="Davetiye" class="invitation" id="invitation">
+    <div class="name" id="nameField"><span></span></div>
+</div>
 
-    <script>
-        /*
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param)?.trim();
-        }
+<script>
 
-        function adjustFontSize(element, referenceElement) {
-            let fontSize = referenceElement.clientWidth * 0.05;
-            element.style.fontSize = fontSize + "px";
-            while (element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) {
-                fontSize -= 1;
-                element.style.fontSize = fontSize + "px";
-                if (fontSize < 10) break;
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const token = getQueryParam("t");
-            const nameField = document.getElementById("nameField").querySelector("span");
-            const nameContainer = document.getElementById("nameField");
-            const invitation = document.getElementById("invitation");
-
-            if (!token || !davetliler[token]) {
-                window.location.href = "/404-not-found"
-            } else {
-                nameField.textContent = davetliler[token];
-            }
-
-            invitation.onload = function () {
-                adjustFontSize(nameField, invitation);
-                nameContainer.style.visibility = "visible";
-            };
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("t")?.trim();
-    
-    const nameField = document.getElementById("nameField").querySelector("span");
-    const nameContainer = document.getElementById("nameField");
-    const invitation = document.getElementById("invitation");
-
-    if (!token) {
-        window.location.href = "/404-not-found";
-        return;
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param)?.trim();
     }
-});
-*/
-    // Vercel üzerindeki Serverless Function'a istek atıyoruz
-    fetch(`/api/davetli-getir?t=${token}`)
-        .then(response => {
-            if (!response.ok) {
-                // Eğer 404 dönerse (davetli bulunamazsa)
-                throw new Error("Davetli bulunamadı");
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Sunucudan sadece "isim" verisi geldi, bunu ekrana yazdırıyoruz
-            nameField.textContent = data.isim;
-            
-            // Görsel yüklendiyse ismi göster
-            if (invitation.complete) {
-                adjustFontSize(nameField, invitation);
-                nameContainer.style.visibility = "visible";
-            } else {
-                invitation.onload = function () {
+
+    function adjustFontSize(element, referenceElement) {
+        let fontSize = referenceElement.clientWidth * 0.05;
+        element.style.fontSize = fontSize + "px";
+        while (element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) {
+            fontSize -= 1;
+            element.style.fontSize = fontSize + "px";
+            if (fontSize < 10) break;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const token = getQueryParam("t");
+        const nameField = document.getElementById("nameField").querySelector("span");
+        const nameContainer = document.getElementById("nameField");
+        const invitation = document.getElementById("invitation");
+
+        // Vercel üzerindeki Serverless Function'a istek atıyoruz
+        fetch(`/api/davetli-getir?t=${token}`)
+            .then(response => {
+                if (!response.ok) {
+                    // Eğer 404 dönerse (davetli bulunamazsa)
+                    throw new Error("Davetli bulunamadı");
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Sunucudan sadece "isim" verisi geldi, bunu ekrana yazdırıyoruz
+                nameField.textContent = data.isim;
+
+                // Görsel yüklendiyse ismi göster
+                if (invitation.complete) {
                     adjustFontSize(nameField, invitation);
                     nameContainer.style.visibility = "visible";
-                };
-            }
-        })
-        .catch(error => {
-            console.error("Hata:", error);
+                } else {
+                    invitation.onload = function () {
+                        adjustFontSize(nameField, invitation);
+                        nameContainer.style.visibility = "visible";
+                    };
+                }
+            })
+            .catch(error => {
+                console.error("Hata:", error);
+                window.location.href = "/404-not-found";
+            });
+        // if (!token || !davetliler[token]) {
+        //     window.location.href = "/404-not-found"
+        // } else {
+        //     nameField.textContent = davetliler[token];
+        // }
+
+        invitation.onload = function () {
+            adjustFontSize(nameField, invitation);
+            nameContainer.style.visibility = "visible";
+        };
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("t")?.trim();
+
+        const nameField = document.getElementById("nameField").querySelector("span");
+        const nameContainer = document.getElementById("nameField");
+        const invitation = document.getElementById("invitation");
+
+        if (!token) {
             window.location.href = "/404-not-found";
-        });
-    </script>
+            return;
+        }
+    });
+
+
+</script>
 </body>
 </html>
