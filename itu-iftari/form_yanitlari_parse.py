@@ -14,14 +14,10 @@ def generate_unique_code(existing_codes):
 
 
 def create_davetli_listesi_js(veriler):
-    # JavaScript dosyasını oluştur
-    js_icerik = "davetliler = {\n"
-    js_icerik += ",\n".join(f'  "{veri[COL_TOKEN]}": "{veri[COL_ISIM]}"' for veri in veriler)
-    js_icerik += "\n}\n"
-
     davetliler_json = {}
     for veri in veriler:
-        davetliler_json[veri[COL_TOKEN]] = {"İsim": veri[COL_ISIM], "tip": "i" if veri[COL_OKUL] == "İTÜ" else "o"}
+        # davetliler_json[veri[COL_TOKEN]] = {"İsim": veri[COL_ISIM], "tip": "i" if veri[COL_OKUL] == "İTÜ" else "o"}
+        davetliler_json[veri[COL_TOKEN]] = veri[COL_ISIM]
 
     with open("davetli-listesi.js", "w", encoding="utf-8") as js_dosyasi:
         js_dosyasi.write(f"davetliler = {json.dumps(davetliler_json, indent=4, ensure_ascii=False)}\n")
