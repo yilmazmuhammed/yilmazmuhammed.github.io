@@ -132,9 +132,11 @@
         //         window.location.href = "/404-not-found";
         //     });
         if (!token || !davetliler[token]) {
+            console.log("token:", token, "not found");
             window.location.href = "/404-not-found"
         } else {
-            nameField.textContent = davetliler[token];
+            console.log(davetliler[token]["İsim"]);
+            nameField.textContent = davetliler[token]["İsim"];
         }
 
         invitation.onload = function () {

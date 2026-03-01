@@ -1,3 +1,4 @@
+import json
 import os
 import secrets
 import string
@@ -18,8 +19,12 @@ def create_davetli_listesi_js(veriler):
     js_icerik += ",\n".join(f'  "{veri[COL_TOKEN]}": "{veri[COL_ISIM]}"' for veri in veriler)
     js_icerik += "\n}\n"
 
+    davetliler_json = {}
+    for veri in veriler:
+        davetliler_json[veri[COL_TOKEN]] = {"İsim": veri[COL_ISIM], "tip": "i" if veri[COL_OKUL] == "İTÜ" else "o"}
+
     with open("davetli-listesi.js", "w", encoding="utf-8") as js_dosyasi:
-        js_dosyasi.write(js_icerik)
+        js_dosyasi.write(f"davetliler = {json.dumps(davetliler_json, indent=4, ensure_ascii=False)}\n")
 
 
 def read_and_parse_form_yanitlari_xlsx(dosya_adi):
@@ -34,15 +39,25 @@ def read_and_parse_form_yanitlari_xlsx(dosya_adi):
     sutun_indexleri = {}
     for i, baslik in enumerate(basliklar):
         if baslik:
-            # 'İTÜ Uzantılı E-posta adresiniz' başlığını 'E-posta adresiniz' ile birleştir
-            anahtar = "E-posta adresiniz" if baslik in ["E-posta adresiniz",
-                                                        "İTÜ Uzantılı E-posta adresiniz"] else baslik
+            if baslik.startswith(COL_ISIM):
+                anahtar = COL_ISIM
+            elif baslik.lower() == COL_TELEFON.lower():
+                anahtar = COL_TELEFON
+            elif baslik.startswith(COL_CINSIYET):
+                anahtar = COL_CINSIYET
+            elif baslik.endswith(COL_EMAIL):
+                anahtar = COL_EMAIL
+            elif baslik.startswith(COL_EKLEMEK_ISTEDIKLERINIZ):
+                anahtar = COL_EKLEMEK_ISTEDIKLERINIZ
+            else:
+                anahtar = baslik
+
             if anahtar not in sutun_indexleri:
                 sutun_indexleri[anahtar] = []
             sutun_indexleri[anahtar].append(i)
 
     # Telefon numarası sütunlarını belirle
-    telefon_sutunlari = ["Telefon Numaranız (5xxxxxxxxx)"]
+    telefon_sutunlari = [COL_TELEFON]
 
     # Satırları işle
     veriler = []
@@ -56,7 +71,10 @@ def read_and_parse_form_yanitlari_xlsx(dosya_adi):
                 satir_verisi[baslik] = str(int(degerler[0]))  # Ondalık kısımdan kurtul
             else:
                 satir_verisi[baslik] = degerler[0] if degerler else None
-        satir_verisi.pop("Eklemek istediğiniz bir şey var mı?", None)
+
+        satir_verisi.pop(COL_EKLEMEK_ISTEDIKLERINIZ, None)
+        satir_verisi.pop(COL_CINSIYET, None)
+
         veriler.append(satir_verisi)
     return veriler
 
@@ -111,15 +129,18 @@ def merge_yanitlar_ve_davetliler_verileri(davetliler, mevcut_davetliler):
     return guncellenmis_davetliler
 
 
-FILE_FORM_YANITLARI = "İTÜ İftarı - 2025 (Yanıtlar).xlsx"
+FILE_FORM_YANITLARI = "İtü iftar 26 (Yanıtlar).xlsx"
 FILE_DAVETLILER = "itu_iftari_davetliler.xlsx"
 
 COL_TOKEN = "token"
 COL_OKUL = "Okulunuz"
 COL_ISIM = "Adınız Soyadınız"
+COL_CINSIYET = "Size nasıl hitap etmemizi istersiniz?"
 COL_TELEFON = "Telefon Numaranız (5xxxxxxxxx)"
 COL_ZAMAN_DAMGASI = "Zaman damgası"
 COL_STATUS = "Mesaj gönderildi mi?"
+COL_EMAIL = "E-posta adresiniz"
+COL_EKLEMEK_ISTEDIKLERINIZ = "Eklemek istedikleriniz"
 
 if __name__ == '__main__':
     # İlk dosyayı oku ve parse et

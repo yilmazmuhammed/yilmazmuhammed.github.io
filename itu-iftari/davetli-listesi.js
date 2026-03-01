@@ -1,3 +1,6 @@
 davetliler = {
-  "44njSN": "Ahmet Said Şenol"
+    "hello": {
+        "İsim": "hello my worl",
+        "tip": "i"
+    }
 }
