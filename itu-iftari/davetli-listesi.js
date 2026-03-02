@@ -1,3 +1,3 @@
 davetliler = {
-    "hello": "ahmet said"
+    "hello": "Ahmet Said GÜNDOĞDU"
 }
