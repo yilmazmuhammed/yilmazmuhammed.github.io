@@ -160,17 +160,30 @@
         const nameContainer = document.getElementById("nameField");
         const invitation = document.getElementById("invitation");
 
+        // Davetiyeyi ve ismi tutan ana alanı seçiyoruz
+        const davetiyeKutusu = document.querySelector('.container');
+
         if (!token || !davetliler[token]) {
             console.log("token:", token, "not found");
             window.location.href = "/404-not-found"
+            return; // Kodun hata vermemesi için burada durduruyoruz
         } else {
             console.log(davetliler[token]);
             nameField.textContent = davetliler[token];
         }
 
+        // --- YENİ: İSİM YERLEŞTİRME VE BOYUTLANDIRMA FONKSİYONU ---
+        function ismiYerlestir() {
+            // Sadece davetiye ekranda görünürse ve resim tamamen yüklendiyse hesaplama yap
+            if (davetiyeKutusu.style.display !== 'none' && invitation.complete) {
+                adjustFontSize(nameField, invitation);
+                nameContainer.style.visibility = "visible";
+            }
+        }
+
+        // Resim yüklendiğinde tetiklenecek (İlk açılış için)
         invitation.onload = function () {
-            adjustFontSize(nameField, invitation);
-            nameContainer.style.visibility = "visible";
+            ismiYerlestir();
         };
 
         // --- BUTON İŞLEMLERİ VE ANALYTICS TAKİBİ ---
@@ -179,30 +192,24 @@
         const btnGroup = document.getElementById('btnGroup');
         const feedbackMsg = document.getElementById('feedback-msg');
 
-        // Davetiyeyi ve ismi tutan ana alanı seçiyoruz
-        const davetiyeKutusu = document.querySelector('.container');
-
         // 1. KURAL: Sayfa ilk açıldığında davetiyeyi gizle
         davetiyeKutusu.style.display = 'none';
 
-        // Davetlinin ismini alıyoruz ki Analytics'te kimin tıkladığını görebilelim
-        const davetliIsmi = (token && davetliler[token]) ? davetliler[token] : 'Bilinmeyen Misafir';
-
-        // Bu misafire özel bir hafıza anahtarı oluşturuyoruz
-        const storageKey = 'iftar_katilim_' + (token || 'anonim');
+        const davetliIsmi = davetliler[token];
+        const storageKey = 'iftar_katilim_' + token;
 
         // 2. KURAL: SAYFA YÜKLENDİĞİNDE DAHA ÖNCEKİ CEVABI KONTROL ET
         const oncekiCevap = localStorage.getItem(storageKey);
 
         if (oncekiCevap === 'evet') {
-            // EVET DEMİŞSE: Butonları gizle, davetiyeyi göster
             btnGroup.style.display = 'none';
             davetiyeKutusu.style.display = 'block';
             feedbackMsg.innerText = "Katılım durumunuzu 'Evet' olarak bildirdiniz. İftarda görüşmek üzere!";
             feedbackMsg.style.display = 'block';
+
+            setTimeout(ismiYerlestir, 50);
         }
         else if (oncekiCevap === 'hayir') {
-            // HAYIR DEMİŞSE: Butonları GİZLEME (durum güncelleyebilsinler), davetiye kapalı kalsın
             feedbackMsg.innerText = "Katılmayacağınızı belirttiniz ama durumunuzu güncellemek isterseniz tıklayınız:";
             feedbackMsg.style.display = 'block';
         }
@@ -216,13 +223,16 @@
                 'event_label': token + ": " +davetliIsmi
             });
 
-            localStorage.setItem(storageKey, 'evet'); // Hafızaya EVET yaz
+            localStorage.setItem(storageKey, 'evet');
 
-            btnGroup.style.display = 'none'; // Butonları kalıcı olarak gizle
-            davetiyeKutusu.style.display = 'block'; // DAVETİYEYİ GÖSTER
+            btnGroup.style.display = 'none';
+            davetiyeKutusu.style.display = 'block'; // Davetiye ekrana geldi!
 
             feedbackMsg.innerText = "Harika! Katılımınız kaydedildi. İftarda görüşmek üzere.";
             feedbackMsg.style.display = 'block';
+
+            // Davetiye ekrana geldiği an ismi güvenle hesaplayıp yerleştiriyoruz
+            setTimeout(ismiYerlestir, 50);
         });
 
         // 'Maalesef katılamayacağım' Butonu (HAYIR)
@@ -235,7 +245,7 @@
             localStorage.setItem(storageKey, 'hayir');
 
             btnGroup.style.display = 'none';
-            davetiyeKutusu.style.display = 'none';
+            davetiyeKutusu.style.display = 'none'; // Davetiye kapalı
 
             feedbackMsg.innerText = "Katılamamanıza üzüldük :( \n Gelecek seneye seni de bekliyoruz.";
             feedbackMsg.style.display = 'block';
