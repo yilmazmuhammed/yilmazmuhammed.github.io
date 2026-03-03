@@ -85,19 +85,19 @@ def add_tokens_to_veriler(veriler, existing_tokens):
     return veriler
 
 
-ITULU_SMS = """Sayın {isim} ,
+ITULU_SMS = """Sayın {isim},
 İTÜ İFTARI YAKLAŞIYOR !
 
-Değerli İTÜ'lü, kaydınız alınmıştır. İlginiz için teşekkür ederiz. Kampüse İTÜ kimliğinizle girebilirsiniz. Davetiyenize linkten ulaşabilirsiniz.
+Değerli İTÜ'lü, kaydınız alınmıştır. Davetiyenize linkten ulaşabilirsiniz.
 
 https://dvty.tr/i?t={token}
 
 İftarımızda görüşmek üzere. 
 """
-DIGER_SMS = """Sayın {isim} ,
+DIGER_SMS = """Sayın {isim},
 İTÜ İFTARI YAKLAŞIYOR !
 
-Değerli misafirimiz kaydınız alınmıştır. İlginiz için teşekkür ederiz. Kampüse giriş kartınıza linkten ulaşabilirsiniz.
+Değerli misafirimiz kaydınız alınmıştır. Davetiyenize linkten ulaşabilirsiniz.
 
 https://dvty.tr/?t={token}
 
@@ -155,7 +155,7 @@ def merge_yanitlar_ve_davetliler_verileri(davetliler, mevcut_davetliler):
     return guncellenmis_davetliler
 
 
-FILE_FORM_YANITLARI = "itu-iftari/İtü iftar 26 (Yanıtlar) (4).xlsx"
+FILE_FORM_YANITLARI = "itu-iftari/İtü iftar 26 (Yanıtlar) (5).xlsx"
 FILE_DAVETLILER = "itu_iftari_davetliler.xlsx"
 
 COL_TOKEN = "token"
