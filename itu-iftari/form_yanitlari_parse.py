@@ -155,7 +155,7 @@ def merge_yanitlar_ve_davetliler_verileri(davetliler, mevcut_davetliler):
     return guncellenmis_davetliler
 
 
-FILE_FORM_YANITLARI = "itu-iftari/İtü iftar 26 (Yanıtlar) (3).xlsx"
+FILE_FORM_YANITLARI = "itu-iftari/İtü iftar 26 (Yanıtlar) (4).xlsx"
 FILE_DAVETLILER = "itu_iftari_davetliler.xlsx"
 
 COL_TOKEN = "token"
