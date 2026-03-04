@@ -8,7 +8,7 @@ import openpyxl
 # Rastgele 6 haneli eşsiz kod üretme fonksiyonu
 def generate_unique_code(existing_codes):
     while True:
-        code = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(7))
+        code = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(8))
         if code not in existing_codes:
             return code
 
@@ -163,7 +163,7 @@ def merge_yanitlar_ve_davetliler_verileri(davetliler, mevcut_davetliler):
     return guncellenmis_davetliler
 
 
-FILE_FORM_YANITLARI = "itu-iftari/iftar davetiye listesi (1) (3).xlsx"
+FILE_FORM_YANITLARI = "itu-iftari/uc'te atılanlar.xlsx"
 FILE_DAVETLILER = "itu_iftari_davetliler.xlsx"
 
 COL_TOKEN = "token"
