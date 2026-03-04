@@ -8,7 +8,7 @@ import openpyxl
 # Rastgele 6 haneli eşsiz kod üretme fonksiyonu
 def generate_unique_code(existing_codes):
     while True:
-        code = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(6))
+        code = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(7))
         if code not in existing_codes:
             return code
 
@@ -62,9 +62,17 @@ def read_and_parse_form_yanitlari_xlsx(dosya_adi):
         for baslik, index_listesi in sutun_indexleri.items():
             degerler = [row[i] for i in index_listesi if row[i] is not None]
 
-            # Telefon numarası ise string formatına çevir
-            if baslik in telefon_sutunlari and degerler:
-                satir_verisi[baslik] = str(int(degerler[0]))  # Ondalık kısımdan kurtul
+        ######## bu kısmı degıstırdım ve kodda farklılık olmasın dıye kopya olusturdum kımı seylerı okumuyordu kod ####
+
+            # Telefon numarası ise temizle ve string formatına çevir
+            if baslik in telefon_sutunlari and degerler and degerler[0] is not None:
+                deger = degerler[0]
+                if isinstance(deger, str):
+                    # Metinse: İçerisindeki gizli unicode karakterleri ve boşlukları temizle, sadece rakamları al
+                    satir_verisi[baslik] = ''.join(filter(str.isdigit, deger))
+                else:
+                    # Sayısal değerse (int veya float): Ondalık kısımdan kurtul
+                    satir_verisi[baslik] = str(int(deger))
             else:
                 satir_verisi[baslik] = degerler[0] if degerler else None
 
